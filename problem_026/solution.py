@@ -24,7 +24,7 @@ def test(frac, den, pfx):
 def run():
     start = time.time()
     getcontext().prec = PRECISION
-    fracs = [((D(1) / D(den)).as_tuple().digits, den) for den in range(2, 1000)]
+    fracs = [((D(1) / D(den)).as_tuple().digits, den) for den in range(3, 1000, 2)]
     longfracs = [(frac, den) for frac, den in fracs if len(frac) == PRECISION]
     for frac, den in longfracs:
         pfx = 0
