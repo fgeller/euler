@@ -1,0 +1,6 @@
+(defun sum-and-squares ()
+  (let ((squareofsums 0) (sumofsquares 0))
+  (do ((n 0 (1+ n)))
+      ((> n 100) (- (* squareofsums squareofsums) sumofsquares))
+    (incf squareofsums n)
+    (incf sumofsquares (* n n)))))
