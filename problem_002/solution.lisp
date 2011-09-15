@@ -1,0 +1,7 @@
+(defun sum-even-valued-fibonacci ()
+  (do ((sum 0)
+       (fib1 1 fib2)
+       (fib2 2 (+ fib1 fib2)))
+      ((> fib2 4000000) sum)
+    (if (= 0 (mod fib2 2))
+	 (incf sum fib2))))

@@ -1,0 +1,13 @@
+(defun find-largest-palindrom-alternate ()
+  (do ((n 100 (1+ n))
+       (palindrom 0))
+      ((= n 1000) palindrom)
+    (do ((m n (1+ m))
+	 (i n (1+ i))
+	 (number (* n n) (* n i)))
+	((= m 1000))
+      (let ((nstr (write-to-string number)))
+	(when (and (equal nstr 
+			  (reverse nstr)) 
+		   (> number palindrom))
+	  (setf palindrom number))))))

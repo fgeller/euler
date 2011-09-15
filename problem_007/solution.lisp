@@ -1,0 +1,15 @@
+(defun find-10001-prime ()
+    (let ((number 1) (primecount 0))
+      (loop
+	 (incf number)
+	 (when (is-prime number) 
+	   (incf primecount))
+	 (when (= 10001 primecount)
+	     (return number)))))
+
+(defun is-prime (number)
+  (do ((n 2 (1+ n)))
+      ((> n (/ number 2)))
+    (if (= 0 (mod number n))
+	(return-from is-prime NIL)))
+  (return-from is-prime number))
