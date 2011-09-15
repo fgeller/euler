@@ -5,19 +5,19 @@ import time
 def run():
     exp = 5
     finds = []
-    sums = dict()
+    sums = []
     for ndigs in range(0, 6):
         newsums = []
         for num in range(1, 10):
             numsum = pow(num, exp)
             curnum = num * pow(10, ndigs)
             newsums.append((curnum, numsum))
-            for restnum, restsum in sums.items():
+            for restnum, restsum in sums:
                 newnum = curnum + restnum
                 newsum = numsum + restsum
                 newsums.append((newnum, newsum))
                 if newnum == newsum: finds.append(newnum)
-        for nnum, nsum in newsums: sums[nnum] = nsum
+        sums.extend(newsums)
 
     print "Found %s for exp %s. Their sum is %s." % (finds, exp, sum(finds))
 
