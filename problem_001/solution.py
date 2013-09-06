@@ -1,4 +1,4 @@
-def findSum(limit = 1000):
+def findSum(limit=1000):
     sum = 0
     for number in range(3, limit):
         if number % 3 == 0:
@@ -7,3 +7,5 @@ def findSum(limit = 1000):
         if number % 5 == 0:
                 sum += number
     print sum
+
+findSum()

@@ -8,3 +8,5 @@
 	 (when (/= 0 (mod number n))
 	   (return))
 	 (setf number (/ number n))))))
+
+(find-largest-prime-in 600851475143)
