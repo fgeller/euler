@@ -2,109 +2,40 @@
 
 from operator import mul
 
-def get_largest_product_in_grid(grid):
-    grid = parse_grid(grid)
-    return max(calculate_max_row_product(grid),
-               calculate_max_column_product(grid),
-               calculate_max_diagonal_product_right_to_left(grid),
-               calculate_max_diagonal_product_right_to_left(grid))
-
 def parse_grid(grid):
     return [[int(number) for number in line.split()] for line in grid.split('\n')]
 
-def calculate_max_diagonal_product_left_to_right(grid):
-    max = 0
-    row = len(grid)
-    column = 0
 
-    while (row >= 0):
-        column = 0
-        for row_tmp in range(row, len(grid)-3, 1):
-            product = 1
-            for offset in range(4):
-                product *= grid[row_tmp + offset][column + offset]
-            if (product > max):
-                max = product
-            column += 1
-        row -= 1
+def get_largest_product_in_grid(grid):
+    grid = parse_grid(grid)
+    max_product = 0
 
-    column = 0
-    while (column <= len(grid[row])):
-        row = 0
-        for column_tmp in range(column, len(grid[row])-3, 1):
-            product = 1
-            for offset in range(4):
-                product *= grid[row+offset][column_tmp+offset]
-            if (product > max):
-                max = product
-            row += 1
-        column += 1
+     #columns
+    for column in range(0,20):
+        for row in range(0,17):
+            product = reduce(mul, [grid[row+x][column] for x in range(0,4)])
+            max_product = max(max_product, product)        
 
-    return max
+    #rows
+    for row in range(0,20):
+        for column in range(0,17):
+            product = reduce(mul, [grid[row][column+x] for x in range(0,4)])
+            max_product = max(max_product, product)
 
+    # diagonal lines left to right
+    for row in range(0,17):
+        for column in range(0,17):
+            product = reduce(mul, [grid[row+x][column+x] for x in range(0,4)])
+            max_product = max(max_product, product)
 
-def calculate_max_diagonal_product_right_to_left(grid):
-    max = 0
-    row = len(grid) - 1
+    # diagonal lines right to left
+    for row in range(0,17):
+        for column in range(3,20):
+            product = reduce(mul, [grid[row+x][column-x] for x in range(0,4)])
+            max_product = max(max_product, product )
 
-    while (row >= 0):
-        column = len(grid[row]) - 1
-        for row_tmp in range(row, len(grid)-3, 1):
-            product = 1
-            for offset in range(4):
-                product *= grid[row_tmp + offset][column - offset]
-            if (product > max):
-                max = product
-            column -= 1
-        row -= 1
+    return max_product
 
-    column = len(grid[row]) - 1
-    while (column >= 0):
-        row = 0
-        for column_tmp in range(column, 2, -1):
-            product = 1
-            for offset in range(4):
-                product *= grid[row + offset][column_tmp - offset]
-            if (product > max):
-                max = product
-            row += 1
-        column -= 1
-
-    return max
-    
-
-def calculate_max_column_product(grid):
-    max = 0
-    column = 0
-
-    while column < len(grid[0]):
-        row_start = 0
-        row_end = 4
-        while row_end <= len(grid):
-            numbers = [row[column] for row in grid[row_start:row_end]]
-            product = reduce(mul, numbers, 1)
-            if (product > max):
-                max = product
-            row_start += 1
-            row_end += 1
-        column += 1
-
-    return max
-
-def calculate_max_row_product(grid):
-    max = 0
-
-    for row in grid:
-        start = 0
-        end = 4
-        while end <= len(row):
-            product = reduce(mul, row[start:end], 1)
-            if (product > max):
-                max = product
-            start +=1
-            end +=1
-
-    return max
 
 grid = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
